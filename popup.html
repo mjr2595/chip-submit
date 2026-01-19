@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chip Submit</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <div class="nav">
+      <button id="navSettings" class="nav-btn">Settings</button>
+      <button id="navSubmit" class="nav-btn active">Submit</button>
+    </div>
+
+    <!-- Settings View -->
+    <div id="settingsView" class="view" style="display: none">
+      <h2>Settings</h2>
+      <form id="settingsForm">
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <select id="name" required>
+            <option value="">Choose</option>
+            <option value="Aaron Cutshall">Aaron Cutshall</option>
+            <option value="Alex Harris">Alex Harris</option>
+            <option value="Amelia Dutta">Amelia Dutta</option>
+            <option value="Angela Cortes">Angela Cortes</option>
+            <option value="arvind singharpuria">arvind singharpuria</option>
+            <option value="Augustine Correa">Augustine Correa</option>
+            <option value="Bas Steins">Bas Steins</option>
+            <option value="Briana Valmont">Briana Valmont</option>
+            <option value="Calypso Hernandez">Calypso Hernandez</option>
+            <option value="Cam Perry">Cam Perry</option>
+            <option value="Chris Corriere">Chris Corriere</option>
+            <option value="Christopher Scott">Christopher Scott</option>
+            <option value="Danny Castro">Danny Castro</option>
+            <option value="David Ponce Santos">David Ponce Santos</option>
+            <option value="David Schuster">David Schuster</option>
+            <option value="Fajar Maulana Harahap">Fajar Maulana Harahap</option>
+            <option value="Janet Spellman-Marsh">Janet Spellman-Marsh</option>
+            <option value="Jasmin Alvarez">Jasmin Alvarez</option>
+            <option value="Jeff Jessie">Jeff Jessie</option>
+            <option value="Jeremy Barger">Jeremy Barger</option>
+            <option value="Jordyn Wallace">Jordyn Wallace</option>
+            <option value="KAREN ARACELI VALLE GALINDO">
+              KAREN ARACELI VALLE GALINDO
+            </option>
+            <option value="Kierra Dotson">Kierra Dotson</option>
+            <option value="Krishna Sarathi Ghosh">Krishna Sarathi Ghosh</option>
+            <option value="Lisa Sinn">Lisa Sinn</option>
+            <option value="Lucas Nguyen">Lucas Nguyen</option>
+            <option value="Michael Larocca">Michael Larocca</option>
+            <option value="Michael Raymond">Michael Raymond</option>
+            <option value="Michael Thompson">Michael Thompson</option>
+            <option value="Monica Woodie">Monica Woodie</option>
+            <option value="Naz Ashrafi">Naz Ashrafi</option>
+            <option value="Neda Sefati">Neda Sefati</option>
+            <option value="Oscar Leal">Oscar Leal</option>
+            <option value="Pat Clarke">Pat Clarke</option>
+            <option value="Ramsi Kalia">Ramsi Kalia</option>
+            <option value="Renan Campos Riberio">Renan Campos Riberio</option>
+            <option value="Rob Cameron">Rob Cameron</option>
+            <option value="Robert Fornal">Robert Fornal</option>
+            <option value="Roxy Rodriguez-Becker">Roxy Rodriguez-Becker</option>
+            <option value="Sebastian Bimbi">Sebastian Bimbi</option>
+            <option value="Sebastian Serrano">Sebastian Serrano</option>
+            <option value="Seth Kuhn">Seth Kuhn</option>
+            <option value="Shannan Bunch">Shannan Bunch</option>
+            <option value="Teron Bullock">Teron Bullock</option>
+            <option value="Will Klein">Will Klein</option>
+            <option value="Wouter van Marrum">Wouter van Marrum</option>
+            <option value="Yanique Bullock">Yanique Bullock</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ambassadorCode">Ambassador Code *</label>
+          <input
+            type="text"
+            id="ambassadorCode"
+            placeholder="https://platform.torc.dev/#/r/..."
+            required
+          />
+          <small class="help-text"
+            >Must start with: https://platform.torc.dev/#/r/</small
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Settings</button>
+      </form>
+      <div id="settingsStatus" class="status"></div>
+    </div>
+
+    <!-- Submit View -->
+    <div id="submitView" class="view">
+      <h2>Submit Content</h2>
+
+      <div class="info-section">
+        <label>Current Page URL:</label>
+        <div id="currentUrl" class="url-display">Loading...</div>
+      </div>
+
+      <div class="info-section">
+        <label>Saved Settings:</label>
+        <div id="savedSettings" class="settings-display">
+          <div>Email: <span id="displayEmail">Not set</span></div>
+          <div>Name: <span id="displayName">Not set</span></div>
+          <div>Code: <span id="displayCode">Not set</span></div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button id="submitBtn" class="btn btn-primary">Submit</button>
+        <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
+      </div>
+
+      <div id="submitStatus" class="status"></div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

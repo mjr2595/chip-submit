@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Chip Submit",
+  "version": "1.0.0",
+  "description": "Quick submission tool for Torc Ambassador content",
+
+  "permissions": ["tabs", "storage", "activeTab"],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "chip.png"
+  }
+}
