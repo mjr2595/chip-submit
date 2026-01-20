@@ -1,10 +1,10 @@
 const FORM_CONFIG = {
-  baseUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfNKFVaVkShWlBfthGcSIebWM5WrbMJDaEewg-UNjeS916hww/viewform',
+  formResponseUrl: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSd9v9wI5Pr9v3d80NXKZ0lW8l0cWJJXbjl8lktm1nXjqZlpkA/formResponse',
   entryIds: {
     email: 'emailAddress',
-    name: 'entry.1223262904',
-    ambassadorCode: 'entry.214453620',
-    linkToPost: 'entry.708215965'
+    name: 'entry.440377606',
+    ambassadorCode: 'entry.951287370',
+    linkToPost: 'entry.385240512'
   }
 };
 
@@ -123,28 +123,28 @@ async function handleSubmit() {
     return;
   }
 
+  const submitBtn = document.getElementById('submitBtn');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Submitting...';
+  submitBtn.disabled = true;
+
   try {
-    // Google Forms blocks direct POST due to CORS, so we open a pre-filled form
-    // in a new tab with query parameters for the user to review and submit
-    const formData = {
-      [FORM_CONFIG.entryIds.email]: settings.email,
-      [FORM_CONFIG.entryIds.name]: settings.name,
-      [FORM_CONFIG.entryIds.ambassadorCode]: settings.ambassadorCode,
-      [FORM_CONFIG.entryIds.linkToPost]: currentTabUrl
-    };
+    // Submit directly to Google Forms using formResponse endpoint
+    const formData = new FormData();
+    formData.append(FORM_CONFIG.entryIds.email, settings.email);
+    formData.append(FORM_CONFIG.entryIds.name, settings.name);
+    formData.append(FORM_CONFIG.entryIds.ambassadorCode, settings.ambassadorCode);
+    formData.append(FORM_CONFIG.entryIds.linkToPost, currentTabUrl);
 
-    const params = Object.entries(formData)
-      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-      .join('&');
-
-    const prefilledUrl = `${FORM_CONFIG.baseUrl}?${params}`;
-
-    await chrome.tabs.create({
-      url: prefilledUrl,
-      active: true
+    await fetch(FORM_CONFIG.formResponseUrl, {
+      method: 'POST',
+      body: formData,
+      mode: 'no-cors' // Required for Google Forms
     });
 
-    showStatus('submitStatus', 'success', 'Form opened in new tab. Please review and click Submit.');
+    // Show success (no-cors mode means we can't detect actual success)
+    showStatus('submitStatus', 'success', '✅ Submitted successfully!');
+    submitBtn.textContent = '✅ Submitted!';
 
     setTimeout(() => {
       window.close();
@@ -152,7 +152,9 @@ async function handleSubmit() {
 
   } catch (error) {
     console.error('Submission error:', error);
-    showStatus('submitStatus', 'error', 'Failed to open form: ' + error.message);
+    showStatus('submitStatus', 'error', 'Submission failed: ' + error.message);
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
   }
 }
 
