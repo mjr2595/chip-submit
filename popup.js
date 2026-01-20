@@ -1,10 +1,10 @@
 const FORM_CONFIG = {
-  formResponseUrl: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSd9v9wI5Pr9v3d80NXKZ0lW8l0cWJJXbjl8lktm1nXjqZlpkA/formResponse',
+  formResponseUrl: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSfNKFVaVkShWlBfthGcSIebWM5WrbMJDaEewg-UNjeS916hww/formResponse',
   entryIds: {
     email: 'emailAddress',
-    name: 'entry.440377606',
-    ambassadorCode: 'entry.951287370',
-    linkToPost: 'entry.385240512'
+    name: 'entry.271625725',
+    ambassadorCode: 'entry.690154667',
+    linkToPost: 'entry.355586873'
   }
 };
 

@@ -4,11 +4,16 @@ browser extension for torc ambassador content submissions
 
 ## Installation
 
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Enable **Developer mode** (toggle in top right corner)
-3. Click **Load unpacked**
-4. Select this project folder
-5. The extension icon will appear in your Chrome toolbar
+1. Clone this repository or download it as a ZIP file:
+   ```bash
+   git clone https://github.com/mjr2595/chip-submit
+   ```
+   Or download and extract the ZIP from the repository
+2. Open Chrome and navigate to `chrome://extensions/`
+3. Enable **Developer mode** (toggle in top right corner)
+4. Click **Load unpacked**
+5. Select this project folder
+6. The extension icon will appear in your Chrome toolbar
 
 ## Setup
 
