@@ -1,6 +1,9 @@
 # Chip Submit
 
-browser extension for torc ambassador content submissions
+A browser extension for Torc Ambassador content submissions
+
+> [!WARNING]
+> Use at your own risk! Google Forms doesn't return errors for invalid submissions! Double check your info, especially your name (it needs to match exactly).
 
 ## Installation
 
