@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "description": "Quick submission tool for Torc Ambassador content",
 
-  "permissions": ["tabs", "storage", "activeTab"],
-
+  "permissions": ["tabs", "storage", "activeTab", "contextMenus", "scripting"],
+  "background": {
+    "service_worker": "background/context.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": "chip.png"
