@@ -20,8 +20,24 @@ async function alert(msg){
   });
 }
 
+
+// injects a confirm msg into dom
+async function confirm(msg){
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const results = await chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    args: [msg],
+    func: (msg) => {
+      return window.confirm(msg);
+    }
+  });
+  const userResponse = results[0].result;
+  return userResponse;
+}
 // modified logic to not use DOM
 async function handleSubmit() {
+
+  const AMBASSADOR_CODE_PREFIX = 'https://platform.torc.dev/#/r/';
   const settings = await chrome.storage.sync.get(['email', 'name', 'ambassadorCode']);
 
   if (!settings.email || !settings.name || !settings.ambassadorCode) {
@@ -38,22 +54,27 @@ async function handleSubmit() {
     alert('Cannot submit from this page. Please navigate to a valid webpage.');
     return;
   }
-
+  
   try {
     // Submit directly to Google Forms using formResponse endpoint
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if(await confirm(`${tab.url} is being submitted for ${settings.name}\n with the ambassador code ${settings.ambassadorCode}`))
+    {
 
-    const formData = new FormData();
-    formData.append(FORM_CONFIG.entryIds.email, settings.email);
-    formData.append(FORM_CONFIG.entryIds.name, settings.name);
-    formData.append(FORM_CONFIG.entryIds.ambassadorCode, settings.ambassadorCode);
-    formData.append(FORM_CONFIG.entryIds.linkToPost, tab.url);
+      const formData = new FormData();
+      formData.append(FORM_CONFIG.entryIds.email, settings.email);
+      formData.append(FORM_CONFIG.entryIds.name, settings.name);
+      formData.append(FORM_CONFIG.entryIds.ambassadorCode, settings.ambassadorCode);
+      formData.append(FORM_CONFIG.entryIds.linkToPost, tab.url);
 
-    await fetch(FORM_CONFIG.formResponseUrl, {
-      method: 'POST',
-      body: formData,
-      mode: 'no-cors' // Required for Google Forms
-    });
+      await fetch(FORM_CONFIG.formResponseUrl, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Required for Google Forms
+      });
+    } else{
+      alert("Nothing Doing")
+    }
 
   } catch (error) {
     alert("Submission error:", error)
@@ -73,7 +94,6 @@ chrome.runtime.onInstalled.addListener(() => {
 // Handle the click event
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "sendData") {
-    alert("running")
     handleSubmit()
   }
 });
